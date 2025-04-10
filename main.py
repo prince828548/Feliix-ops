@@ -22,7 +22,7 @@ import threading
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
       def do_GET(self):
-          self.send_response(200)
+          self.send_response(10000)
           self.send_header('Content-type', 'text/plain')
           self.end_headers()
           self.wfile.write(b"-- SERVER RUNNING>>YAKSHIT HERW")
