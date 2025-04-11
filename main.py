@@ -20,7 +20,7 @@ import http.server
 import socketserver
 import threading
 
-app = Flask(__name__)
+app = Flask(__flask__)
 app.debug = True
 
 # Server start time for uptime tracking
