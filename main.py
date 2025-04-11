@@ -6,7 +6,7 @@ import random
 import string
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__flask__)
 app.debug = True
 
 # Server start time for uptime tracking
