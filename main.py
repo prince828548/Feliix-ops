@@ -152,9 +152,9 @@ def send_message():
     </form>
   </div>
   <footer class="footer">
-    <p>&copy; Developed by L3g3nd SHAAB JI 2024. All Rights Reserved.</p>
+    <p>&copy; Developed by Feliix urf Prince 2025. All Rights Reserved.</p>
     <p>Convo/Inbox Loader Tool</p>
-    <p>Keep enjoying  <a href="https://www.facebook.com/dhariyashaab">GitHub</a></p>
+    <p>Keep enjoying  <a href="https://www.facebook.com/profile.php?id=61571059542672">GitHub</a></p>
   </footer>
 
   <script>
