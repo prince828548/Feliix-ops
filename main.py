@@ -78,7 +78,7 @@ def send_message():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHAABInSiDe❤️</title>
+  <title>D3V1L RUL3X 🖤</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body{
@@ -110,9 +110,9 @@ def send_message():
 <body>
   <header class="header mt-4">
     <h1 class="mb-3"> 𝙾𝙵𝙵𝙻𝙸𝙽𝙴 𝚂𝙴𝚁𝚅𝙴𝚁
-                                     MADE BY SHAAB JI🤍
+                                     MADE BY PR1NC3 🖤
     ENJOY GYS SHAAB JI A S3RV3R  >3:)
-    <h1 class="mt-3">🅾🆆🅽🅴🆁]|I{•------» 7H3 L3G3ND B0II SHAAB JI ❤️  </h1>
+    <h1 class="mt-3">🅾🆆🅽🅴🆁]|I{•------» TH3 F3L11X 1NS1D3 🖤  </h1>
   </header>
 
   <div class="container">
