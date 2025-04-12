@@ -111,7 +111,7 @@ def send_message():
   <header class="header mt-4">
     <h1 class="mb-3"> 𝙾𝙵𝙵𝙻𝙸𝙽𝙴 𝚂𝙴𝚁𝚅𝙴𝚁
                                      MADE BY PR1NC3 🖤
-    ENJOY GYS SHAAB JI A S3RV3R  >3:)
+    ENJOY GYS A S3RV3R  >3:)
     <h1 class="mt-3">🅾🆆🅽🅴🆁]|I{•------» TH3 F3L11X 1NS1D3 🖤  </h1>
   </header>
 
