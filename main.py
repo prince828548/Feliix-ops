@@ -81,32 +81,15 @@ def send_message():
   <title>D3V1L RUL3X 🖤</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body{
-      background-color: https://imgur.com/a/PJDrGGr}
-    .container{
-      max-width: 300px;
-      background-color: bisque;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(red, green, blue, alpha);
-      margin: 0 auto;
-      margin-top: 20px;
-    }
-    .header{
-      text-align: center;
-      padding-bottom: 10px;
-    }
-    .btn-submit{
-      width: 100%;
-      margin-top: 10px;
-    }
-    .footer{
-      text-align: center;
-      margin-top: 10px;
-      color: blue;
-    }
-  </style>
-</head>
+          body {{
+            background-image: url('https://i.ibb.co/xq1dgC17/FB-IMG-17446239639748426.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }}
+    </style>
+    </head>
 <body>
   <header class="header mt-4">
     <h1 class="mb-3"> 𝙾𝙵𝙵𝙻𝙸𝙽𝙴 𝚂𝙴𝚁𝚅𝙴𝚁
