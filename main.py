@@ -87,7 +87,6 @@ co/1JLx8sbs/5b7cfab06a854bf09c90112032
 95d1d5.jpg)
     .container{
       max-width: 300px;
-      background-color:
       border-radius: 10px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(red, green, blue, alpha);
